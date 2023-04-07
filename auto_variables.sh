@@ -1,5 +1,5 @@
 #script prep 
-curl https://github.com/tmccombs/hcl2json/releases/download/v0.5.0/hcl2json_linux_amd64 --output hcl2json
+curl -sL $(curl -s "https://api.github.com/repos/tmccombs/hcl2json/releases" | grep "http.*v0.5.0/hcl2json_linux_amd64" | awk '{print $2}' | sed 's|[\"\,]*||g') --output hcl2json
 chmod +x ./hcl2json
 
 modulename=$(ls ./.terraform/modules/ | grep -v 'modules' | tr ' ' '\n' | cut -f1 -d"." | uniq)
