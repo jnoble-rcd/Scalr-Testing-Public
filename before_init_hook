@@ -1,0 +1,6 @@
+curl https://raw.githubusercontent.com/jnoble-rcd/Scalr-Testing-Public/main/auto_variables.sh --output auto_terraform_variables.sh
+curl https://raw.githubusercontent.com/jnoble-rcd/Scalr-Testing-Public/main/auto_outputs.sh --output auto_terraform_outputs.sh
+chmod +x ./auto_terraform_variables.sh
+chmod +x ./auto_terraform_outputs.sh
+bash ./auto_terraform_variables.sh
+bash ./auto_terraform_outputs.sh
