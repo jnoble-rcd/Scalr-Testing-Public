@@ -1,3 +1,7 @@
+#script prep 
+curl https://github.com/tmccombs/hcl2json/releases/download/v0.5.0/hcl2json_linux_amd64 --output hcl2json
+chmod +x ./hcl2json
+
 modulename=$(ls ./.terraform/modules/ | grep -v 'modules' | tr ' ' '\n' | cut -f1 -d"." | uniq)
 
 ##check applicaiton variable tf
@@ -5,13 +9,13 @@ appvarsfile="../application_variables.tf"
 if [[ -f "$appvarsfile" ]]; then
     echo "file exists"
     cp ../application_variables.tf ./
-    appvarsjson=$(cat ../application_variables.tf | ./hcl2json_darwin_amd64)
+    appvarsjson=$(cat ../application_variables.tf | ./hcl2json)
     appvarsjsonnames=($(jq --raw-output '.[]| keys[]' <<< $appvarsjson))
 fi
 
 ### deployment variable tf
 
-varsjson=$(cat .terraform/modules/$modulename/variables.tf | ./hcl2json_darwin_amd64)
+varsjson=$(cat .terraform/modules/$modulename/variables.tf | ./hcl2json)
 variablenames=($(jq --raw-output '.[]| keys[]' <<< $varsjson))
 #echo ${variablenames[*]}
 test=$(cat << 'EOF'
