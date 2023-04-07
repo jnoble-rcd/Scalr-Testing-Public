@@ -9,7 +9,7 @@ if [[ -f "$appvarsfile" ]]; then
     scalrtfvarnames=($(jq --raw-output 'keys[]' <<< $scalrtfvarjson))
     if [[ -f "../application.tfvars" ]]; then
         echo "fileexists"
-        applicationtfvarnames=$(cat ../application.tfvars | tr ' ' '\n' | sort | uniq -u)
+        applicationtfvarnames=$(cat ../application.tfvars |  cut -f1 -d"=" | sort | uniq -u)
         uniquevars=$(echo ${scalrtfvarnames[@]} ${applicationtfvarnames[@]} | tr ' ' '\n' | sort | uniq -u)
         cp ../application.tfvars ./application.auto.tfvars 
     else
